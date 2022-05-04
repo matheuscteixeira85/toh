@@ -2,6 +2,7 @@ package br.ufs.esii.toh.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -9,22 +10,27 @@ import javax.persistence.MappedSuperclass;
 public class Pessoa {
 
 	@Id
-	private int cpf;
-	
+	private long cpf;
+
+	@Column(nullable = false)
 	private String nome;
+	@Column(nullable = false)
 	private String tipo_usuario;
+	@Column(nullable = false)
 	private Date data_cadastro;
+	@Column(nullable = false)
 	private Date data_alteracao;
+	@Column(nullable = false)
 	private String senha;
 	private String endereco;
 	private String telefone;
 	private Date data_nascimento;
 	private String genero;
 	
-	public int getCpf() {
+	public long getCpf() {
 		return cpf;
 	}
-	public void setCpf(int cpf) {
+	public void setCpf(long cpf) {
 		this.cpf = cpf;
 	}
 	public String getNome() {

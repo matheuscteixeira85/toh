@@ -2,6 +2,7 @@ package br.ufs.esii.toh.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,13 +15,19 @@ public class Cardapio {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id_cardapio;
-	
+	private long id_cardapio;
+
+	@Column(nullable = false)
 	private String nome;
+	@Column(nullable = false)
 	private String descricao;
+	@Column(nullable = false)
 	private String turno;
+	@Column(nullable = false)
 	private Date data;
+	@Column(nullable = false)
 	private Date data_cadastro;
+	@Column(nullable = false)
 	private Date data_alteracao;
 	
 	@ManyToOne
@@ -46,10 +53,10 @@ public class Cardapio {
 	public void setGestor(Gestor gestor) {
 		this.gestor = gestor;
 	}
-	public int getId_cardapio() {
+	public long getId_cardapio() {
 		return id_cardapio;
 	}
-	public void setId_cardapio(int id_cardapio) {
+	public void setId_cardapio(long id_cardapio) {
 		this.id_cardapio = id_cardapio;
 	}
 	public String getTurno() {

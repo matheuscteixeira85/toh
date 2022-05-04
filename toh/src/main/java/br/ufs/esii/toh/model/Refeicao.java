@@ -1,5 +1,6 @@
 package br.ufs.esii.toh.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +13,9 @@ public class Refeicao {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id_refeicao;
-	
+	private long id_refeicao;
+
+	@Column(nullable = false)
 	private boolean consumida = false;
 	
 	@ManyToOne

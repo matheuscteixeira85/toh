@@ -1,17 +1,20 @@
 package br.ufs.esii.toh.model;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class Funcionario extends Pessoa{
 
-	private int matricula;
+	@Column(unique = true, nullable = false)
+	private long matricula;
+	@Column(nullable = false)
 	private String tipo;
 	
-	public int getMatricula() {
+	public long getMatricula() {
 		return matricula;
 	}
-	public void setMatricula(int matricula) {
+	public void setMatricula(long matricula) {
 		this.matricula = matricula;
 	}
 	public String getTipo() {
