@@ -17,16 +17,16 @@ public class Refeicao {
 	private boolean consumida = false;
 	
 	@ManyToOne
-	@JoinColumn(name="id_cardapio")
+	@JoinColumn(name="cardapio_id")
 	private Cardapio cardapio;
 	@ManyToOne
-	@JoinColumn(name="cpf")
+	@JoinColumn(name="usuario_cpf")
 	private Usuario usuario;
 	@ManyToOne
-	@JoinColumn(name="cpf")
+	@JoinColumn(name="gestor_cpf")
 	private Gestor gestor;
 	@ManyToOne
-	@JoinColumn(name="cpf")
+	@JoinColumn(name="atendente_cpf")
 	private Atendente atendente;
 	
 }

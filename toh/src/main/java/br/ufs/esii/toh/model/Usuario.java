@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 public class Usuario extends Pessoa{
 
 	@ManyToOne
-	@JoinColumn(name="cpf")
+	@JoinColumn(name="gestor_cpf")
 	private Gestor gestor;
 	
 	public Gestor getGestor() {

@@ -17,6 +17,16 @@ public class Cardapio {
 	private int id_cardapio;
 	
 	private String nome;
+	private String descricao;
+	private String turno;
+	private Date data;
+	private Date data_cadastro;
+	private Date data_alteracao;
+	
+	@ManyToOne
+	@JoinColumn(name = "gestor_cpf")
+	private Gestor gestor;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -29,14 +39,6 @@ public class Cardapio {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	private String descricao;
-	private String turno;
-	private Date data;
-	private Date data_cadastro;
-	private Date data_alteracao;
-	@ManyToOne
-	@JoinColumn(name="cpf")
-	private Gestor gestor;
 	
 	public Gestor getGestor() {
 		return gestor;

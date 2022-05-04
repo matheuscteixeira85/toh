@@ -9,7 +9,7 @@ public class Gestor extends Funcionario{
 
 
 	@ManyToOne
-	@JoinColumn(name="cpf")
+	@JoinColumn(name="administrador_cpf")
 	private Administrador administrador;
 	
 	public Administrador getAdministrador() {

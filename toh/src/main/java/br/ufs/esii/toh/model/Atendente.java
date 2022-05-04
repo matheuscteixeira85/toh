@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 public class Atendente extends Funcionario{
 
 	@ManyToOne
-	@JoinColumn(name="cpf")
+	@JoinColumn(name="gestor_cpf")
 	private Gestor gestor;
 	
 	public void validarRefeicao() {
