@@ -1,5 +1,8 @@
 package br.ufs.esii.toh.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Administrador extends Funcionario{
 
 
