@@ -1,12 +1,26 @@
 package br.ufs.esii.toh.model;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Gestor extends Funcionario{
 
+
+	@ManyToOne
+	@JoinColumn(name="cpf")
+	private Administrador administrador;
+	
+	public Administrador getAdministrador() {
+		return administrador;
+	}
+
+	public void setAdministrador(Administrador administrador) {
+		this.administrador = administrador;
+	}
+
 	public void cadastrarUsuario() {
-		
 	}
 	
 	public void consultarUsuario() {
