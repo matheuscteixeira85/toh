@@ -1,7 +1,6 @@
 package br.ufs.esii.toh.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -13,19 +12,22 @@ public class Pessoa {
 	private String cpf;
 	
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 50)
 	private String nome;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 130)
 	private LocalDateTime data_cadastro;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 130)
 	private LocalDateTime data_alteracao;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 50)
 	private String senha;
 	
-	
+	@Column(length = 100)
 	private String endereco;
+	@Column(length = 11)
 	private String telefone;
-	private Date data_nascimento;
+	@Column(length = 130)
+	private String data_nascimento;
+	@Column(length = 20)
 	private String genero;
 	
 	
@@ -94,11 +96,11 @@ public class Pessoa {
 		this.telefone = telefone;
 	}
 
-	public Date getData_nascimento() {
+	public String getData_nascimento() {
 		return data_nascimento;
 	}
 
-	public void setData_nascimento(Date data_nascimento) {
+	public void setData_nascimento(String data_nascimento) {
 		this.data_nascimento = data_nascimento;
 	}
 

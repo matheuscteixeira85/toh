@@ -1,5 +1,7 @@
 package br.ufs.esii.toh.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +17,13 @@ public class Refeicao {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id_refeicao;
 	@Column(nullable = false)
-	private boolean consumida = false;
+	private boolean consumida;
+	@Column(nullable = false, length = 130)
+	private LocalDateTime data_cadastro;
+	@Column(nullable = false, length = 130)
+	private LocalDateTime data_alteracao;
 	
+
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_usuario_refeicao", referencedColumnName = "usuario_id", nullable = true)
 	private Usuario usuario_refeicao;
@@ -47,6 +54,22 @@ public class Refeicao {
 
 	public void setConsumida(boolean consumida) {
 		this.consumida = consumida;
+	}
+	
+	public LocalDateTime getData_cadastro() {
+		return data_cadastro;
+	}
+
+	public void setData_cadastro(LocalDateTime data_cadastro) {
+		this.data_cadastro = data_cadastro;
+	}
+
+	public LocalDateTime getData_alteracao() {
+		return data_alteracao;
+	}
+
+	public void setData_alteracao(LocalDateTime data_alteracao) {
+		this.data_alteracao = data_alteracao;
 	}
 
 	public Usuario getUsuario_refeicao() {

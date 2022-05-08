@@ -14,7 +14,7 @@ public class Usuario extends Pessoa{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long usuario_id;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 20)
 	private String tipo_usuario;
 
 /*	

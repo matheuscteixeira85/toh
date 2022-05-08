@@ -16,17 +16,17 @@ public class Cardapio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id_cardapio;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 50)
 	private String nome;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 150)
 	private String descricao;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 5)
 	private String turno;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 130)
 	private LocalDateTime data_refeicao;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 130)
 	private LocalDateTime data_cadastro;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 130)
 	private LocalDateTime data_alteracao;
 /*
 	@OneToMany(mappedBy = "cardapio_refeicao", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH})
