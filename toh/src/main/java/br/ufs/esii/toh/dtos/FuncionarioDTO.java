@@ -9,7 +9,7 @@ public class FuncionarioDTO extends PessoaDTO{
 	@NotBlank
 	@Size(max=20)
 	private String tipo;
-	@NotBlank
+	
 	private long matricula;
 	
 	

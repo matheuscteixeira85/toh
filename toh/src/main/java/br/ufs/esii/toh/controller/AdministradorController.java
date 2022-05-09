@@ -34,25 +34,27 @@ public class AdministradorController {
 	@Autowired
 	AdministradorService administradorService;
 	
+	
 	@PostMapping
 	public ResponseEntity<Object> saveAdministrador(@RequestBody @Valid AdministradorDTO administradorDTO){
 		//VERIFICAR REGISTROS UNICOS REPETIDOS
+		
 		if(administradorService.existsByCpf(administradorDTO.getCpf())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Administrador com este CPF já cadastrado!");
 		}
-
-		if(administradorService.existsByMatricula(administradorDTO.getMatricula())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Administrador com esta matricula já cadastrado!");
-		}
-		
+		List<Administrador> lista = administradorService.findAll();
+//		if(administradorService.existsByMatricula(administradorDTO.getMatricula())) {
+//			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Administrador com esta matricula já cadastrado!");
+//		}
 		var administrador = new Administrador();
 		BeanUtils.copyProperties(administradorDTO, administrador);
+		administrador.setMatricula(lista.size());
 		administrador.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
 		administrador.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
 		return ResponseEntity.status(HttpStatus.CREATED).body(administradorService.save(administrador));
 	}
 	
-	@GetMapping
+	@GetMapping("/get")
 	public ResponseEntity<List<Administrador>> getAllAdministradores(){
 		return ResponseEntity.status(HttpStatus.OK).body(administradorService.findAll());
 	}
