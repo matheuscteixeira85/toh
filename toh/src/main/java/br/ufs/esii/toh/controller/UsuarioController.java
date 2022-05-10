@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,22 +20,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufs.esii.toh.dtos.UsuarioDTO;
 import br.ufs.esii.toh.model.Usuario;
 import br.ufs.esii.toh.services.UsuarioService;
 
-@RestController
+@Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/usuario")
 public class UsuarioController {
 
 	@Autowired
 	UsuarioService usuarioService;
+
+	@RequestMapping("/")
+	public String usuario() {
+		return "usuario";
+	}
 	
 	@PostMapping
-	public ResponseEntity<Object> saveusUario(@RequestBody @Valid UsuarioDTO usuarioDTO){
+	@ResponseBody
+	public ResponseEntity<Object> saveUsuario(@RequestBody @Valid UsuarioDTO usuarioDTO){
 		//VERIFICAR REGISTROS UNICOS REPETIDOS
 		if(usuarioService.existsByCpf(usuarioDTO.getCpf())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Usuario com este CPF já cadastrado!");
@@ -48,11 +56,13 @@ public class UsuarioController {
 	}
 	
 	@GetMapping
+	@ResponseBody
 	public ResponseEntity<List<Usuario>> getAllUsuarios(){
 		return ResponseEntity.status(HttpStatus.OK).body(usuarioService.findAll());
 	}
 	
 	@GetMapping("/{id}")
+	@ResponseBody
 	public ResponseEntity<Object> getOneUsuario(@PathVariable(value = "id") Long id){
 		Optional<Usuario> usuarioOptional = usuarioService.findById(id);
 		if(!usuarioOptional.isPresent()) {
@@ -62,6 +72,7 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@ResponseBody
 	public ResponseEntity<Object> deleteUsuario(@PathVariable(value = "id") Long id){
 		Optional<Usuario> usuarioOptional = usuarioService.findById(id);
 		if(!usuarioOptional.isPresent()) {
@@ -72,7 +83,8 @@ public class UsuarioController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateusuario(@PathVariable(value = "id") Long id,
+	@ResponseBody
+	public ResponseEntity<Object> updateUsuario(@PathVariable(value = "id") Long id,
 											   @RequestBody @Valid UsuarioDTO usuarioDTO){
 		Optional<Usuario> usuarioOptional = usuarioService.findById(id);
 		if(!usuarioOptional.isPresent()) {
