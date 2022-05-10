@@ -31,15 +31,6 @@ public class Pessoa {
 	private String genero;
 	
 	
-/*	@OneToOne
-	@JoinColumn(name = "usuario_id")
-	private Usuario usuario;
-	@OneToOne
-	@JoinColumn(name = "matricula")
-	private Funcionario funcionario;
-*/
-	
-	
 	public String getCpf() {
 		return cpf;
 	}
@@ -111,23 +102,5 @@ public class Pessoa {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-/*
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-		
-	*/
 	
 }

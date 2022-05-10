@@ -17,28 +17,6 @@ public class Gestor extends Funcionario{
 	private UUID gestor_id;
 	
 	
-/*	
-	@OneToOne(optional = true)
-	@JoinColumn(name="funcionario_id")
-	private Funcionario funcionario;
-	*/
-	
-	/*
-	
-	@OneToMany(mappedBy = "gestor_atendente", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-	private Atendente atendene;
-	
-	@OneToMany(mappedBy = "gestor_usuario", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-	private Usuario usuario;
-	
-	@OneToMany(mappedBy = "gestor_cardapio", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-	private Cardapio cardapio;
-	
-	@OneToMany(mappedBy = "gestor_refeicao", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-	private Refeicao refeicao;
-	*/
-	
-	
 	@ManyToOne
 	@JoinColumn(name = "id_administrador", referencedColumnName = "administrador_id", nullable = true)
 	private Administrador administrador_gestor;
@@ -55,67 +33,6 @@ public class Gestor extends Funcionario{
 		this.gestor_id = gestor_id;
 	}
 
-
-/*
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-*/
-
-/*
-	public Atendente getAtendene() {
-		return atendene;
-	}
-
-
-
-	public void setAtendene(Atendente atendene) {
-		this.atendene = atendene;
-	}
-
-
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-
-
-	public Cardapio getCardapio() {
-		return cardapio;
-	}
-
-
-
-	public void setCardapio(Cardapio cardapio) {
-		this.cardapio = cardapio;
-	}
-
-
-
-	public Refeicao getRefeicao() {
-		return refeicao;
-	}
-
-
-
-	public void setRefeicao(Refeicao refeicao) {
-		this.refeicao = refeicao;
-	}
-
-*/
 
 	public Administrador getAdministrador_gestor() {
 		return administrador_gestor;

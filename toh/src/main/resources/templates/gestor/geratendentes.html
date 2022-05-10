@@ -9,9 +9,37 @@
 		<div class="container-fluid py-5">
 			<div class="card-header" align="center"><h2 class="text-primary">Gerenciar Atendentes</h2></div>
 			<div class="card-body">
-				<div class="row">
+				<div class="d-grid gap-2 col-12">
+					<form action="">
+						<div class="mb-3">
+							<label for="inputNome" class="form-label">Nome</label>
+							<input type="text" class="form-control" id="inputNome">
+						</div>
+						<div class="mb-3">
+							<label for="inputCpf" class="form-label">CPF</label>
+							<input type="text" class="form-control" id="inputCPF">
+						</div>
+						<div class="mb-3">
+							<label for="inputEndereco" class="form-label">Endereço</label>
+							<input type="text" class="form-control" id="inputEndereco">
+						</div>
+						<div class="mb-3">	
+							<label for="inputTelefone" class="form-label">Telefone</label>
+							<input type="tel" class="form-control" id="inputTelefone">
+						</div>
+						<div class="mb-3">	
+							<label for="inputNascimento" class="form-label">Data de Nascimento</label>
+							<input type="date" class="form-control" id="inputNascimento"> 
+						</div>
+						<div class="mb-3">	
+							<label for="inputGenero" class="form-label">Genero</label>
+							<input type="genero" class="form-control" id="inputGenero"> 
+						</div>
+						<button type="submit" class="btn btn-primary gap-2 col-12">Salvar</button>
+					</form>
 					<div class="d-grid gap-2 col-12">
-						<a  class="btn btn-primary btn-lg" href="/gestor/" role="button">Voltar</a>
+						<a class="btn btn-primary" href="#" role="button">Consultar</a>
+						<a class="btn btn-primary" href="/gestor/" role="button">Voltar</a>
 					</div>
 				</div>
 			</div>
