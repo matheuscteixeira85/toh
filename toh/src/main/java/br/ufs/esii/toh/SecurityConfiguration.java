@@ -29,7 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		//.anyRequest().authenticated()
 		//.and().formLogin().permitAll()
 		//.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		
 		//http.authorizeRequests().anyRequest().authenticated().and().formLogin();
+		
 		//http.httpBasic().and().authorizeRequests().antMatchers("/api/home").hasRole("ADMIN").antMatchers("/api/product/*").hasRole("ADMIN").and().formLogin();
 	}
 	

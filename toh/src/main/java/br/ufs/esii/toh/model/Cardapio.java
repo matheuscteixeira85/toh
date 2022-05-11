@@ -28,14 +28,13 @@ public class Cardapio {
 	private LocalDateTime data_cadastro;
 	@Column(nullable = false, length = 130)
 	private LocalDateTime data_alteracao;
-/*
-	@OneToMany(mappedBy = "cardapio_refeicao", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH})
-	private Refeicao refeicao;
-	*/
+
+	
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_gestor_cardapio", referencedColumnName = "gestor_id", nullable = true)
 	private Gestor gestor_cardapio;
 
+	
 	public int getId_cardapio() {
 		return id_cardapio;
 	}
@@ -91,15 +90,7 @@ public class Cardapio {
 	public void setData_alteracao(LocalDateTime data_alteracao) {
 		this.data_alteracao = data_alteracao;
 	}
-/*
-	public Refeicao getRefeicao() {
-		return refeicao;
-	}
-
-	public void setRefeicao(Refeicao refeicao) {
-		this.refeicao = refeicao;
-	}
-*/
+	
 	public Gestor getGestor_cardapio() {
 		return gestor_cardapio;
 	}

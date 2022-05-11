@@ -4,10 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class Validarcpf {
+@RequestMapping("atendente/validarcpf")
+public class ValidarcpfController {
 
 	
-	@RequestMapping("atendente/validarcpf")
+	@RequestMapping("/")
 	public String validarcof() {
 		return "atendente/validarcpf";
 	}
