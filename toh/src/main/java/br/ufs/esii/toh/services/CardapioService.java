@@ -32,6 +32,15 @@ public class CardapioService {
 		return cardapioRepositorie.findById(id);
 	}
 
+	public Optional<Cardapio> findByDataTurno(String dataTurno) {
+		// TODO Auto-generated method stub
+		return cardapioRepositorie.findByDataTurno(dataTurno);
+	}
+	
+	public boolean existsByDataTurno(String dataTurno) {
+		return cardapioRepositorie.existsByDataTurno(dataTurno);
+	}
+
 	@Transactional
 	public void delete(Cardapio cardapio) {
 		// TODO Auto-generated method stub

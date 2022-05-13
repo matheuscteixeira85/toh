@@ -10,8 +10,10 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +22,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufs.esii.toh.dtos.UsuarioDTO;
+import br.ufs.esii.toh.model.Administrador;
+import br.ufs.esii.toh.model.Gestor;
 import br.ufs.esii.toh.model.Usuario;
+import br.ufs.esii.toh.services.GestorService;
 import br.ufs.esii.toh.services.UsuarioService;
 
 @Controller
@@ -34,24 +40,39 @@ public class UsuarioController {
 
 	@Autowired
 	UsuarioService usuarioService;
+	
+	@Autowired
+	GestorService gestorService;
 
 	@RequestMapping("/")
 	public String usuario() {
 		return "usuario";
 	}
 	
-	@PostMapping
+	@PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody
-	public ResponseEntity<Object> saveUsuario(@RequestBody @Valid UsuarioDTO usuarioDTO){
+	public ResponseEntity<Object> saveUsuario(@RequestParam MultiValueMap<String, String> paramMap){
 		//VERIFICAR REGISTROS UNICOS REPETIDOS
-		if(usuarioService.existsByCpf(usuarioDTO.getCpf())) {
+		if(usuarioService.existsByCpf(paramMap.getFirst("cpf"))) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Usuario com este CPF já cadastrado!");
 		}
 		
 		var usuario = new Usuario();
-		BeanUtils.copyProperties(usuarioDTO, usuario);
+		usuario.setCpf(paramMap.getFirst("cpf"));
+		usuario.setNome(paramMap.getFirst("nome"));
+		usuario.setEndereco(paramMap.getFirst("endereco"));
+		usuario.setTelefone(paramMap.getFirst("telefone"));
+		usuario.setData_nascimento(paramMap.getFirst("data_nascimento"));
+		usuario.setGenero(paramMap.getFirst("genero"));
 		usuario.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
 		usuario.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
+		usuario.setSenha("123456");
+		usuario.setTipo_usuario(paramMap.getFirst("tipo_usuario"));
+		
+		Optional<Gestor> optional;
+		optional = gestorService.findByCpf("10101010101");
+		
+		usuario.setGestor_usuario(optional.get());
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuario));
 	}
 	

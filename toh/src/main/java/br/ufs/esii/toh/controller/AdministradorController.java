@@ -11,8 +11,10 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +22,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufs.esii.toh.dtos.AdministradorDTO;
+import br.ufs.esii.toh.dtos.PessoaDTO;
 import br.ufs.esii.toh.model.Administrador;
 import br.ufs.esii.toh.services.AdministradorService;
 
@@ -42,14 +47,19 @@ public class AdministradorController {
 		return "administrador";
 	}
 	
+	@RequestMapping("/root/")
+	public String root() {
+		return "root";
+	}
 	
 	
-	@PostMapping
+	
+	@PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody
-	public ResponseEntity<Object> saveAdministrador(@RequestBody @Valid AdministradorDTO administradorDTO){
+	public ResponseEntity<Object> saveAdministrador(@RequestParam MultiValueMap<String, String> paramMap){
 		//VERIFICAR REGISTROS UNICOS REPETIDOS
 		
-		if(administradorService.existsByCpf(administradorDTO.getCpf())) {
+		if(administradorService.existsByCpf(paramMap.getFirst("cpf"))) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Administrador com este CPF já cadastrado!");
 		}
 		List<Administrador> lista = administradorService.findAll();
@@ -57,10 +67,17 @@ public class AdministradorController {
 //			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Administrador com esta matricula já cadastrado!");
 //		}
 		var administrador = new Administrador();
-		BeanUtils.copyProperties(administradorDTO, administrador);
+		administrador.setCpf(paramMap.getFirst("cpf"));
+		administrador.setNome(paramMap.getFirst("nome"));
+		administrador.setEndereco(paramMap.getFirst("endereco"));
+		administrador.setTelefone(paramMap.getFirst("telefone"));
+		administrador.setData_nascimento(paramMap.getFirst("data_nascimento"));
+		administrador.setGenero(paramMap.getFirst("genero"));
 		administrador.setMatricula(lista.size());
 		administrador.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
 		administrador.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
+		administrador.setSenha("123456");
+		administrador.setTipo("admin");
 		return ResponseEntity.status(HttpStatus.CREATED).body(administradorService.save(administrador));
 	}
 	

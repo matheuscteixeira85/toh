@@ -37,6 +37,11 @@ public class UsuarioService {
 		return usuarioRepositorie.findById(id);
 	}
 
+	public Optional<Usuario> findByCpf(String cpf) {
+		// TODO Auto-generated method stub
+		return usuarioRepositorie.findByCpf(cpf);
+	}
+
 	@Transactional
 	public void delete(Usuario usuario) {
 		// TODO Auto-generated method stub

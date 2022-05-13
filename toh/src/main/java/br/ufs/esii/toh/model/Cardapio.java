@@ -22,11 +22,14 @@ public class Cardapio {
 	private String descricao;
 	@Column(nullable = false, length = 5)
 	private String turno;
-	@Column(nullable = false, length = 130)
+	@Column(nullable = false, length = 30)
 	private LocalDateTime data_refeicao;
-	@Column(nullable = false, length = 130)
+	@Column(nullable = false, length = 35)
+	private String dataTurno;
+
+	@Column(nullable = false, length = 30)
 	private LocalDateTime data_cadastro;
-	@Column(nullable = false, length = 130)
+	@Column(nullable = false, length = 30)
 	private LocalDateTime data_alteracao;
 
 	
@@ -89,6 +92,13 @@ public class Cardapio {
 
 	public void setData_alteracao(LocalDateTime data_alteracao) {
 		this.data_alteracao = data_alteracao;
+	}
+	public String getDataTurno() {
+		return dataTurno;
+	}
+
+	public void setDataTurno(String dataTurno) {
+		this.dataTurno = dataTurno;
 	}
 	
 	public Gestor getGestor_cardapio() {

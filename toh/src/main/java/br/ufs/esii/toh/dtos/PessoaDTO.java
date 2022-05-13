@@ -14,13 +14,10 @@ public class PessoaDTO {
 	@NotBlank
 	@Size(max=50)
 	private String nome;
-	@NotBlank
-	@Size(max=50, min=6)
-	private String senha;
 	
 	@Size(max=100, min = 0)
 	private String endereco;
-	@Size(max=11, min = 0)
+	@Size(max=20, min = 0)
 	private String telefone;
 	@Size(max=130, min = 0)
 	private String data_nascimento;
@@ -40,12 +37,7 @@ public class PessoaDTO {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+	
 	public String getEndereco() {
 		return endereco;
 	}

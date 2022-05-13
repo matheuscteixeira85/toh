@@ -11,8 +11,10 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +23,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufs.esii.toh.dtos.AtendenteDTO;
 import br.ufs.esii.toh.model.Atendente;
+import br.ufs.esii.toh.model.Gestor;
+import br.ufs.esii.toh.model.Usuario;
 import br.ufs.esii.toh.services.AtendenteService;
+import br.ufs.esii.toh.services.GestorService;
 
 @Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -36,24 +42,39 @@ public class AtendenteController {
 	@Autowired
 	AtendenteService atendenteService;
 	
+	@Autowired
+	GestorService gestorService;
+	
 	@RequestMapping("/")
 	public String atendente() {
 		return "atendente";
 	}
 	
 	
-	@PostMapping
+	@PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody
-	public ResponseEntity<Object> saveAtendente(@RequestBody @Valid AtendenteDTO atendenteDTO){
+	public ResponseEntity<Object> saveAtendente(@RequestParam MultiValueMap<String, String> paramMap){
 		//VERIFICAR REGISTROS UNICOS REPETIDOS
-		if(atendenteService.existsByCpf(atendenteDTO.getCpf())) {
+		if(atendenteService.existsByCpf(paramMap.getFirst("cpf"))) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Atendente com este CPF já cadastrado!");
 		}
 		
 		var atendente = new Atendente();
-		BeanUtils.copyProperties(atendenteDTO, atendente);
+		atendente.setCpf(paramMap.getFirst("cpf"));
+		atendente.setNome(paramMap.getFirst("nome"));
+		atendente.setEndereco(paramMap.getFirst("endereco"));
+		atendente.setTelefone(paramMap.getFirst("telefone"));
+		atendente.setData_nascimento(paramMap.getFirst("data_nascimento"));
+		atendente.setGenero(paramMap.getFirst("genero"));
 		atendente.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
 		atendente.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
+		atendente.setSenha("123456");
+		atendente.setTipo("atend");
+		
+		Optional<Gestor> optional;
+		optional = gestorService.findByCpf("10101010101");
+		
+		atendente.setGestor_atendente(optional.get());
 		return ResponseEntity.status(HttpStatus.CREATED).body(atendenteService.save(atendente));
 	}
 	

@@ -10,32 +10,22 @@
 			<div class="card-header" align="center"><h2 class="text-primary">Gerenciar Cardápios</h2></div>
 			<div class="card-body">
 				<div class="d-grid gap-2 col-12">
-					<form action="">
+					<form action="/cardapio" method="post">
 						<div class="mb-3">
-							<label for="inputNome" class="form-label">Nome</label>
-							<input type="text" class="form-control" id="inputNome">
+							<label for="nome" class="form-label">Nome</label>
+							<input type="text" class="form-control" id="nome" name="nome">
 						</div>
 						<div class="mb-3">
-							<label for="inputDescricao" class="form-label">Descrição</label>
-							<textarea type="" class="form-control" id="inputDescricao" rows="4"></textarea>
+							<label for="descricao" class="form-label">Descrição</label>
+							<textarea type="" class="form-control" id="descricao" name="descricao" rows="4"></textarea>
 						</div>
 						<div class="mb-3">
-							<label for="inputData" class="form-label">Data</label>
-							<input type="date" class="form-control" id="inputData">
+							<label for="data" class="form-label">Data</label>
+							<input type="date" class="form-control" id="data" name="data">
 						</div>
 						<div class="mb-3">
-							<div>
-								<input class="form-check-input" type="radio" name="inputTurno" id="inputRadio1">
-								<label class="form-check-label" for="inputRadio1">Manhã</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="inputTurno" id="inputRadio2">
-								<label class="form-check-label" for="inputRadio2">Tarde</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="inputTurno" id="inputRadio3">
-								<label class="form-check-label" for="inputRadio3">Noite</label>
-							</div>
+							<label for="turno" class="form-label">Turno</label>
+							<input type="text" class="form-control" id="turno" name="turno">
 						</div>
 						<button type="submit" class="btn btn-primary gap-2 col-12">Salvar</button>
 					</form>

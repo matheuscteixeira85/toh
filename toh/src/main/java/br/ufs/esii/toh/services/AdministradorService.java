@@ -43,6 +43,11 @@ public class AdministradorService {
 		return administradorRepositorie.findById(id);
 	}
 
+	public Optional<Administrador> findByCpf(String cpf) {
+		// TODO Auto-generated method stub
+		return administradorRepositorie.findByCpf(cpf);
+	}
+
 	@Transactional
 	public void delete(Administrador administrador) {
 		// TODO Auto-generated method stub

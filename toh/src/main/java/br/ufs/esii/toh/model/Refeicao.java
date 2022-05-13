@@ -16,6 +16,8 @@ public class Refeicao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id_refeicao;
+	
+	
 	@Column(nullable = false)
 	private boolean consumida;
 	@Column(nullable = false, length = 130)

@@ -38,6 +38,11 @@ public class GestorService {
 		return gestorRepositorie.findById(id);
 	}
 
+	public Optional<Gestor> findByCpf(String cpf) {
+		// TODO Auto-generated method stub
+		return gestorRepositorie.findByCpf(cpf);
+	}
+
 	@Transactional
 	public void delete(Gestor gestor) {
 		// TODO Auto-generated method stub
