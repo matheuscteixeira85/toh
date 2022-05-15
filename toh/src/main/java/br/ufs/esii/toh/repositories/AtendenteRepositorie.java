@@ -10,4 +10,5 @@ import br.ufs.esii.toh.model.Atendente;
 @Repository
 public interface AtendenteRepositorie extends JpaRepository<Atendente, UUID>{
 	boolean existsByCpf(String cpf);
+	Atendente findByLogin(String login);
 }

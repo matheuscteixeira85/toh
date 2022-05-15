@@ -1,5 +1,6 @@
-package br.ufs.esii.toh;
+package br.ufs.esii.toh.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,6 +14,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+
+	@Autowired
+	private ImplementsUsuarioDetailsService usuarioDetailsService;
+	@Autowired
+	private ImplementsGestorDetailsService gestorDetailsService;
+	@Autowired
+	private ImplementsAtendenteDetailsService atendenteDetailsService;
+	@Autowired
+	private ImplementsAdministradorDetailsService administradorDetailsService;
 	
 	@Bean
 	public static BCryptPasswordEncoder passwordEncoder() {
@@ -22,10 +32,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		
-		http.csrf().disable().authorizeRequests().anyRequest().permitAll();
+//		http.csrf().disable().authorizeRequests().anyRequest().permitAll();
+		
+		http.csrf().disable().authorizeRequests()
+		.antMatchers(HttpMethod.GET, "/").permitAll()
+ 		.antMatchers("/administrador").hasAnyRole("ADMIN")
+ 		.antMatchers("/gestor").hasAnyRole("GEST")
+ 		.antMatchers("/atendente").hasAnyRole("ATEN")
+ 		.antMatchers("/usuario").hasAnyRole("USER")
+		.anyRequest().authenticated()
+		.and().formLogin().permitAll()
+		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		
+//		
 		
 //		http.csrf().disable().authorizeRequests()
-	//	.antMatchers(HttpMethod.GET, "/administrador").permitAll()
+	//	.antMatchers("/administrador").permitAll()
 		//.anyRequest().authenticated()
 		//.and().formLogin().permitAll()
 		//.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
@@ -33,11 +55,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		//http.authorizeRequests().anyRequest().authenticated().and().formLogin();
 		
 		//http.httpBasic().and().authorizeRequests().antMatchers("/api/home").hasRole("ADMIN").antMatchers("/api/product/*").hasRole("ADMIN").and().formLogin();
+
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder().encode("password")).authorities("USER");
+		auth.userDetailsService(usuarioDetailsService) 
+		.passwordEncoder(passwordEncoder())
+		.and().userDetailsService(atendenteDetailsService)
+		.passwordEncoder(passwordEncoder())
+		.and().userDetailsService(gestorDetailsService)
+		.passwordEncoder(passwordEncoder())
+		.and().userDetailsService(administradorDetailsService)
+		.passwordEncoder(passwordEncoder());
 	}
 	
 	

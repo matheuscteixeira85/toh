@@ -13,4 +13,5 @@ public interface AdministradorRepositorie extends JpaRepository<Administrador, U
 	boolean existsByCpf(String cpf);
 	boolean existsByMatricula(long matricula);
 	Optional<Administrador> findByCpf(String cpf);
+	Administrador findByLogin(String login);
 }

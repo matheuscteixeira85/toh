@@ -21,12 +21,12 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">ate-matricula</th>
-								<td>ate-nome</td>
-								<td>ate-cpf</td>
-								<td>ate-telefone</td>
-								<td>ate-nascimento</td>
+							<tr th:each="atendente : ${atendentes}">
+								<th scope="row" th:text="${atendente.matricula}">ges-matricula</th>
+								<td th:text="${atendente.nome}">ges-nome</td>
+								<td th:text="${atendente.cpf}">ges-cpf</td>
+								<td th:text="${atendente.telefone}">ges-telefone</td>
+								<td th:text="${atendente.data_nascimento}">ges-nascimento</td>
 							</tr>
 						</tbody>
 					</table>

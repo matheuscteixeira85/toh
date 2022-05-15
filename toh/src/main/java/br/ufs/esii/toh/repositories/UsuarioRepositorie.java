@@ -11,4 +11,5 @@ import br.ufs.esii.toh.model.Usuario;
 public interface UsuarioRepositorie extends JpaRepository<Usuario, Long>{
 	boolean existsByCpf(String cpf);
 	Optional<Usuario> findByCpf(String cpf);
+	Usuario findByLogin(String login);
 }

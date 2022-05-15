@@ -10,7 +10,7 @@
 			<div class="card-header" align="center"><h2 class="text-primary">Gerenciar Gestores</h2></div>
 			<div class="card-body">
 				<div class="d-grid gap-2 col-12">
-					<form action="/gestor" method="post">
+					<form action="/administrador" method="post">
 						<div class="mb-3">
 							<label for="nome" class="form-label">Nome</label>
 							<input type="text" class="form-control" id="nome" name="nome">
@@ -32,10 +32,11 @@
 							<input type="date" class="form-control" id="data_nascimento" name="data_nascimento"> 
 						</div>
 						<div class="mb-3">	
-							<label for="genero" class="form-label">Genero</label>
-							<input type="text" class="form-control" id="genero" name="genero"> 
+							<label for="senha" class="form-label">Senha</label>
+							<input type="password" class="form-control" id="senha" name="senha"> 
 						</div>
 						<button type="submit" class="btn btn-primary gap-2 col-12">Salvar</button>
+						<input type="hidden" id="cpfadmin" name="cpfadmin" th:value="${cpfadmin}"> 
 					</form>
 					<div class="d-grid gap-2 col-12">
 						<a class="btn btn-primary" href="#" role="button">Consultar</a>

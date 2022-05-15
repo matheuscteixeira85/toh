@@ -12,4 +12,5 @@ import br.ufs.esii.toh.model.Gestor;
 public interface GestorRepositorie extends JpaRepository<Gestor, UUID>{
 	boolean existsByCpf(String cpf);
 	Optional<Gestor> findByCpf(String cpf);
+	Gestor findByLogin(String login);
 }

@@ -20,11 +20,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">car_id</th>
-								<td>car_nome</td>
-								<td>car_data</td>
-								<td>car_turno</td>
+							<tr th:each="cardapio : ${cardapios}">
+								<th scope="row" th:text="${cardapio.id_cardapio}">car_id</th>
+								<td th:text="${cardapio.nome}">car_nome</td>
+								<td  th:date="${cardapio.data_refeicao}">car_data</td>
+								<td th:text="${cardapio.turno}">car_turno</td>
 							</tr>
 						</tbody>
 					</table>

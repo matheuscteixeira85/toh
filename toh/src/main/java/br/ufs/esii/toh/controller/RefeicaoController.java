@@ -5,9 +5,6 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,14 +15,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufs.esii.toh.dtos.RefeicaoDTO;
 import br.ufs.esii.toh.model.Cardapio;
 import br.ufs.esii.toh.model.Gestor;
 import br.ufs.esii.toh.model.Refeicao;
@@ -101,7 +95,7 @@ public class RefeicaoController {
 		refeicaoService.delete(refeicaoOptional.get());
 		return ResponseEntity.status(HttpStatus.OK).body("Refeicao deletada com sucesso!");
 	}
-	
+	/*
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateRefeicao(@PathVariable(value = "id") Long id,
 											   @RequestBody @Valid RefeicaoDTO refeicaoDTO){
@@ -116,5 +110,5 @@ public class RefeicaoController {
 		refeicao.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
 		return ResponseEntity.status(HttpStatus.OK).body(refeicaoService.save(refeicao));
 	}
-	
+	*/
 }

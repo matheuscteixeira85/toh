@@ -10,11 +10,23 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="d-grid gap-2 col-12">
-						<a class="btn btn-primary btn-lg" href="/gestor/gerusuarios/" role="button">Gerenciar Usuarios</a>
-						<a class="btn btn-primary btn-lg" href="/gestor/geratendentes/" role="button">Gerenciar Atendentes</a>
-						<a class="btn btn-primary btn-lg" href="/gestor/gercardapios/" role="button">Gerenciar Cardápios</a>
-						<a class="btn btn-primary btn-lg" href="/gestor/gerrefeicoes/" role="button">Gerenciar Refeições</a>
-						<a class="btn btn-primary btn-lg" href="#" role="button">Sair</a>
+						<form class="form-control" action="/gestor/gerusuarios/" method="get">
+							<input type="hidden" class="form-control" id="cpfgestor" name="cpfgestor" value="01036753530">
+							<button type="submit" class="btn btn-primary gap-2 col-12">Gerenciar Usuarios</button>
+						</form>
+						<form class="form-control" action="/gestor/geratendentes/" method="get">
+							<input type="hidden" class="form-control" id="cpfgestor" name="cpfgestor" value="01036753530">
+							<button type="submit" class="btn btn-primary gap-2 col-12">Gerenciar Atendentes</button>
+						</form>
+						<form class="form-control" action="/gestor/gercardapios/" method="get">
+							<input type="hidden" class="form-control" id="cpfgestor" name="cpfgestor" value="01036753530">
+							<button type="submit" class="btn btn-primary gap-2 col-12">Gerenciar Cardápios</button>
+						</form>
+						<form class="form-control" action="/gestor/gerrefeicoes/" method="get">
+							<input type="hidden" class="form-control" id="cpfgestor" name="cpfgestor" value="01036753530">
+							<button type="submit" class="btn btn-primary gap-2 col-12">Gerenciar Tickets</button>
+						</form>
+						<a class="btn btn-primary btn-lg" href="/logout" role="button">Sair</a>
 					</div>
 				</div>
 			</div>

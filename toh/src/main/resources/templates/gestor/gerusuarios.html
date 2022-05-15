@@ -36,10 +36,11 @@
 							<input type="text" class="form-control" id="tipo_usuario" name="tipo_usuario"> 
 						</div>
 						<div class="mb-3">	
-							<label for="genero" class="form-label">Genero</label>
-							<input type="genero" class="form-control" id="genero" name="genero"> 
+							<label for="senha" class="form-label">Senha</label>
+							<input type="password" class="form-control" id="senha" name="senha"> 
 						</div>
 						<button type="submit" class="btn btn-primary gap-2 col-12">Salvar</button>
+						<input type="hidden" id="cpfgestor" name="cpfgestor" th:value="${cpfgestor}"> 
 					</form>
 					<div class="d-grid gap-2 col-12">
 						<a class="btn btn-primary" href="#" role="button">Consultar</a>

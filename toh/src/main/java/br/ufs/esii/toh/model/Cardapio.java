@@ -1,5 +1,6 @@
 package br.ufs.esii.toh.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ public class Cardapio {
 	@Column(nullable = false, length = 5)
 	private String turno;
 	@Column(nullable = false, length = 30)
-	private LocalDateTime data_refeicao;
+	private LocalDate data_refeicao;
 	@Column(nullable = false, length = 35)
 	private String dataTurno;
 
@@ -70,11 +71,11 @@ public class Cardapio {
 		this.turno = turno;
 	}
 
-	public LocalDateTime getData_refeicao() {
+	public LocalDate getData_refeicao() {
 		return data_refeicao;
 	}
 
-	public void setData_refeicao(LocalDateTime data_refeicao) {
+	public void setData_refeicao(LocalDate data_refeicao) {
 		this.data_refeicao = data_refeicao;
 	}
 

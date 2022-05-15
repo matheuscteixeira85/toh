@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+
 @MappedSuperclass
 public class Pessoa {
+
 
 	@Column(nullable = false, unique = true)
 	private String cpf;
@@ -19,6 +21,9 @@ public class Pessoa {
 	@Column(nullable = false, length = 130)
 	private LocalDateTime data_alteracao;
 	@Column(nullable = false, length = 50)
+	private String login;
+
+	@Column(nullable = false)
 	private String senha;
 	
 	@Column(length = 100)
@@ -27,8 +32,6 @@ public class Pessoa {
 	private String telefone;
 	@Column(length = 130)
 	private String data_nascimento;
-	@Column(length = 20)
-	private String genero;
 	
 	
 	public String getCpf() {
@@ -94,13 +97,13 @@ public class Pessoa {
 	public void setData_nascimento(String data_nascimento) {
 		this.data_nascimento = data_nascimento;
 	}
-
-	public String getGenero() {
-		return genero;
-	}
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
 	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 }

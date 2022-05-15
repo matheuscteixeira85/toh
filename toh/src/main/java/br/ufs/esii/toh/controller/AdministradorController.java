@@ -6,32 +6,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import br.ufs.esii.toh.dtos.AdministradorDTO;
-import br.ufs.esii.toh.dtos.PessoaDTO;
 import br.ufs.esii.toh.model.Administrador;
+import br.ufs.esii.toh.model.Gestor;
 import br.ufs.esii.toh.services.AdministradorService;
+import br.ufs.esii.toh.services.GestorService;
 
 @Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -41,9 +36,16 @@ public class AdministradorController {
 	@Autowired
 	AdministradorService administradorService;
 	
+	@Autowired
+	GestorService gestorService;
+	
 
 	@RequestMapping("/")
-	public String administrador() {
+	public String administrador(Model model) {
+		String cpfadmin = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println(cpfadmin.length());
+		model.addAttribute("cpfadmin",cpfadmin);
+		
 		return "administrador";
 	}
 	
@@ -54,31 +56,64 @@ public class AdministradorController {
 	
 	
 	
-	@PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+	@PostMapping
+	@ResponseBody
+	public ResponseEntity<Object> saveGestor(@RequestParam MultiValueMap<String, String> paramMap){
+		//VERIFICAR REGISTROS UNICOS REPETIDOS
+		if(gestorService.existsByCpf(paramMap.getFirst("cpf"))) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Gestor com este CPF já cadastrado!");
+		}
+		List<Gestor> lista = gestorService.findAll();
+		
+		var gestor = new Gestor();
+		gestor.setCpf(paramMap.getFirst("cpf"));
+		gestor.setNome(paramMap.getFirst("nome"));
+		gestor.setEndereco(paramMap.getFirst("endereco"));
+		gestor.setTelefone(paramMap.getFirst("telefone"));
+		gestor.setData_nascimento(paramMap.getFirst("data_nascimento"));
+		gestor.setMatricula(lista.size());
+		gestor.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
+		gestor.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
+		gestor.setLogin(paramMap.getFirst("cpf"));
+		gestor.setSenha(new BCryptPasswordEncoder().encode(paramMap.getFirst("senha")));
+		gestor.setTipo("gest");
+		
+		Optional<Administrador> optional;
+		optional = administradorService.findByCpf(paramMap.getFirst("cpfadmin"));
+		
+		gestor.setAdministrador_gestor(optional.get());
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(gestorService.save(gestor));
+		
+	}
+	
+	
+	
+	@PostMapping("/root/root/")
 	@ResponseBody
 	public ResponseEntity<Object> saveAdministrador(@RequestParam MultiValueMap<String, String> paramMap){
 		//VERIFICAR REGISTROS UNICOS REPETIDOS
 		
+	
 		if(administradorService.existsByCpf(paramMap.getFirst("cpf"))) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Administrador com este CPF já cadastrado!");
 		}
 		List<Administrador> lista = administradorService.findAll();
-//		if(administradorService.existsByMatricula(administradorDTO.getMatricula())) {
-//			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Administrador com esta matricula já cadastrado!");
-//		}
+		
 		var administrador = new Administrador();
 		administrador.setCpf(paramMap.getFirst("cpf"));
 		administrador.setNome(paramMap.getFirst("nome"));
 		administrador.setEndereco(paramMap.getFirst("endereco"));
 		administrador.setTelefone(paramMap.getFirst("telefone"));
 		administrador.setData_nascimento(paramMap.getFirst("data_nascimento"));
-		administrador.setGenero(paramMap.getFirst("genero"));
 		administrador.setMatricula(lista.size());
 		administrador.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
 		administrador.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
-		administrador.setSenha("123456");
+		administrador.setLogin(paramMap.getFirst("cpf"));
+		administrador.setSenha(new BCryptPasswordEncoder().encode(paramMap.getFirst("senha")));
 		administrador.setTipo("admin");
 		return ResponseEntity.status(HttpStatus.CREATED).body(administradorService.save(administrador));
+		
 	}
 	
 	@GetMapping
@@ -107,7 +142,7 @@ public class AdministradorController {
 		administradorService.delete(administradorOptional.get());
 		return ResponseEntity.status(HttpStatus.OK).body("Administrador deletado com sucesso!");
 	}
-	
+/*	
 	@PutMapping("/{id_administrador}")
 	@ResponseBody
 	public ResponseEntity<Object> updateAdministrador(@PathVariable(value = "id_administrador") UUID id,
@@ -123,5 +158,5 @@ public class AdministradorController {
 		administrador.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
 		return ResponseEntity.status(HttpStatus.OK).body(administradorService.save(administrador));
 	}
-	
+*/	
 }

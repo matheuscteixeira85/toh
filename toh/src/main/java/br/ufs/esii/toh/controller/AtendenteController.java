@@ -6,13 +6,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,17 +18,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import br.ufs.esii.toh.dtos.AtendenteDTO;
 import br.ufs.esii.toh.model.Atendente;
 import br.ufs.esii.toh.model.Gestor;
-import br.ufs.esii.toh.model.Usuario;
 import br.ufs.esii.toh.services.AtendenteService;
 import br.ufs.esii.toh.services.GestorService;
 
@@ -65,10 +58,11 @@ public class AtendenteController {
 		atendente.setEndereco(paramMap.getFirst("endereco"));
 		atendente.setTelefone(paramMap.getFirst("telefone"));
 		atendente.setData_nascimento(paramMap.getFirst("data_nascimento"));
-		atendente.setGenero(paramMap.getFirst("genero"));
+		atendente.setSenha(new BCryptPasswordEncoder().encode(paramMap.getFirst("senha")));
 		atendente.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
 		atendente.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
-		atendente.setSenha("123456");
+		atendente.setLogin(paramMap.getFirst("cpf"));
+		atendente.setSenha(new BCryptPasswordEncoder().encode(paramMap.getFirst("senha")));
 		atendente.setTipo("atend");
 		
 		Optional<Gestor> optional;
@@ -104,7 +98,7 @@ public class AtendenteController {
 		atendenteService.delete(atendenteOptional.get());
 		return ResponseEntity.status(HttpStatus.OK).body("Atendente deletado com sucesso!");
 	}
-	
+/*	
 	@PutMapping("/{id}")
 	@ResponseBody
 	public ResponseEntity<Object> updateatendente(@PathVariable(value = "id") UUID id,
@@ -120,4 +114,5 @@ public class AtendenteController {
 		atendente.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
 		return ResponseEntity.status(HttpStatus.OK).body(atendenteService.save(atendente));
 	}
+	*/
 }
