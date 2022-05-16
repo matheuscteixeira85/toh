@@ -32,31 +32,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		
-//		http.csrf().disable().authorizeRequests().anyRequest().permitAll();
 		
 		http.csrf().disable().authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/").permitAll()
+		.antMatchers(HttpMethod.GET, "/administrador/root/").permitAll()
+		.antMatchers(HttpMethod.POST, "/administrador/root/root/").permitAll()
 		.antMatchers(HttpMethod.GET, "/cardapiosdodia").permitAll()
  		.antMatchers("/administrador").hasAnyRole("ADMIN")
  		.antMatchers("/gestor").hasAnyRole("GEST")
- 		.antMatchers("/gestor/atendentes").hasAnyRole("GEST")
  		.antMatchers("/atendente").hasAnyRole("ATEN")
  		.antMatchers("/usuario").hasAnyRole("USER")
 		.anyRequest().authenticated()
 		.and().formLogin().permitAll()
 		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-		
-//		
-		
-//		http.csrf().disable().authorizeRequests()
-	//	.antMatchers("/administrador").permitAll()
-		//.anyRequest().authenticated()
-		//.and().formLogin().permitAll()
-		//.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-		
-		//http.authorizeRequests().anyRequest().authenticated().and().formLogin();
-		
-		//http.httpBasic().and().authorizeRequests().antMatchers("/api/home").hasRole("ADMIN").antMatchers("/api/product/*").hasRole("ADMIN").and().formLogin();
 
 	}
 	

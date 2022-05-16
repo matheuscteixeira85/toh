@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufs.esii.toh.model.Cardapio;
 import br.ufs.esii.toh.model.Refeicao;
 import br.ufs.esii.toh.model.Usuario;
 import br.ufs.esii.toh.repositories.RefeicaoRepositorie;

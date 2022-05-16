@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.ufs.esii.toh.model.Cardapio;
 import br.ufs.esii.toh.model.Refeicao;
 import br.ufs.esii.toh.model.Usuario;
 

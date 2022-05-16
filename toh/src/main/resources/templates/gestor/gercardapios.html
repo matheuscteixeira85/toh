@@ -10,30 +10,10 @@
 			<div class="card-header" align="center"><h2 class="text-primary">Gerenciar Cardápios</h2></div>
 			<div class="card-body">
 				<div class="d-grid gap-2 col-12">
-					<form action="/gestor/gercardapios" method="post">
-						<div class="mb-3">
-							<label for="nome" class="form-label">Nome</label>
-							<input type="text" class="form-control" id="nome" name="nome">
-						</div>
-						<div class="mb-3">
-							<label for="descricao" class="form-label">Descrição</label>
-							<textarea type="" class="form-control" id="descricao" name="descricao" rows="4"></textarea>
-						</div>
-						<div class="mb-3">
-							<label for="data" class="form-label">Data</label>
-							<input type="date" class="form-control" id="data" name="data">
-						</div>
-						<div class="mb-3">
-							<label for="turno" class="form-label">Turno</label>
-							<input type="text" class="form-control" id="turno" name="turno">
-						</div>
-						<button type="submit" class="btn btn-primary gap-2 col-12">Salvar</button>
-						<input type="hidden" id="cpfgestor" name="cpfgestor" th:value="${cpfgestor}"> 
-					</form>
-					<div class="d-grid gap-2 col-12">
-						<a class="btn btn-primary" href="#" role="button">Consultar</a>
-						<a class="btn btn-primary" href="/gestor/" role="button">Voltar</a>
-					</div>
+					<a class="btn btn-primary" href="/gestor/gercardapios/cadastrar/" role="button">Cadastrar Cardápios</a>
+					<a class="btn btn-primary" href="/gestor/gercardapios/consultar/" role="button">Consultar Cardápios</a>
+					<a class="btn btn-primary" href="/gestor/gercardapios/atualizar/" role="button">Atualizar Cardápios</a>
+					<a class="btn btn-primary" href="/gestor/" role="button">Voltar</a>
 				</div>
 			</div>
 		</div>

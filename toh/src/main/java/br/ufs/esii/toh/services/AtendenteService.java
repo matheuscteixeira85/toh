@@ -38,6 +38,11 @@ public class AtendenteService {
 		return atendenteRepositorie.findById(id);
 	}
 
+	public Optional<Atendente> findByCpf(String cpf) {
+		// TODO Auto-generated method stub
+		return atendenteRepositorie.findByCpf(cpf);
+	}
+
 	@Transactional
 	public void delete(Atendente atendente) {
 		// TODO Auto-generated method stub

@@ -10,38 +10,10 @@
 			<div class="card-header" align="center"><h2 class="text-primary">Gerenciar Atendentes</h2></div>
 			<div class="card-body">
 				<div class="d-grid gap-2 col-12">
-					<form action="/gestor/geratendentes" method="post">
-						<div class="mb-3">
-							<label for="nome" class="form-label">Nome</label>
-							<input type="text" class="form-control" id="nome" name="nome">
-						</div>
-						<div class="mb-3">
-							<label for="cpf" class="form-label">CPF</label>
-							<input type="text" class="form-control" id="cpf" name="cpf">
-						</div>
-						<div class="mb-3">
-							<label for="endereco" class="form-label">Endereço</label>
-							<input type="text" class="form-control" id="endereco" name="endereco">
-						</div>
-						<div class="mb-3">	
-							<label for="telefone" class="form-label">Telefone</label>
-							<input type="tel" class="form-control" id="telefone" name="telefone">
-						</div>
-						<div class="mb-3">	
-							<label for="data_nascimento" class="form-label">Data de Nascimento</label>
-							<input type="date" class="form-control" id="data_nascimento" name="data_nascimento"> 
-						</div>
-						<div class="mb-3">	
-							<label for="senha" class="form-label">Senha</label>
-							<input type="password" class="form-control" id="senha" name="senha"> 
-						</div>
-						<button type="submit" class="btn btn-primary gap-2 col-12">Salvar</button>
-						<input type="hidden" id="cpfgestor" name="cpfgestor" th:value="${cpfgestor}"> 
-					</form>
-					<div class="d-grid gap-2 col-12">
-						<a class="btn btn-primary" href="#" role="button">Consultar</a>
-						<a class="btn btn-primary" href="/gestor/" role="button">Voltar</a>
-					</div>
+					<a class="btn btn-primary" href="/gestor/geratendentes/cadastrar/" role="button">Cadastrar Atendentes</a>
+					<a class="btn btn-primary" href="/gestor/geratendentes/consultar/" role="button">Consultar Atendentes</a>
+					<a class="btn btn-primary" href="/gestor/geratendentes/atualizar/" role="button">Atualizar Atendentes</a>
+					<a class="btn btn-primary" href="/gestor/" role="button">Voltar</a>
 				</div>
 			</div>
 		</div>

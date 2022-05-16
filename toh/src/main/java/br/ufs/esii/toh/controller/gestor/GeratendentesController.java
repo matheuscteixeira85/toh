@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +49,40 @@ public class GeratendentesController {
 	
 	}
 	
-	@PostMapping
+	@RequestMapping("/cadastrar/")
+	@GetMapping
+	public String geratendentesCadastrar(@RequestParam MultiValueMap<String, String> paramMap, Model model) {
+		
+		model.addAttribute("cpfgestor", paramMap.getFirst("cpfgestor"));
+		
+		return "gestor/geratendentes/cadastrar";
+	
+	}
+	
+	@RequestMapping("/consultar/")
+	@GetMapping
+	public String geratendentesConsultar(@RequestParam MultiValueMap<String, String> paramMap, Model model) {
+		
+		Optional<Atendente> atendenteOptional = atendenteService.findByCpf(paramMap.getFirst("cpf"));
+		if(!atendenteOptional.isPresent()) {
+			model.addAttribute("atendente", atendenteNaoEncontrado());
+		}
+		else {
+			model.addAttribute("atendente", atendenteOptional.get());
+		}
+		return "gestor/geratendentes/consultar";
+	
+	}
+
+	@RequestMapping("/atualizar/")
+	@GetMapping
+	public String geratendenteAtualizar() {
+		
+		return "gestor/geratendentes/atualizar";
+	
+	}
+	
+	@PostMapping("/cadastrar")
 	@ResponseBody
 	public ResponseEntity<Object> saveAtendente(@RequestParam MultiValueMap<String, String> paramMap){
 		//VERIFICAR REGISTROS UNICOS REPETIDOS
@@ -75,10 +109,54 @@ public class GeratendentesController {
 		atendente.setRoles(listaRoles);
 		
 		Optional<Gestor> optional;
-		optional = gestorService.findByCpf(paramMap.getFirst("cpfgestor"));
+		optional = gestorService.findByCpf(SecurityContextHolder.getContext().getAuthentication().getName());
 		
 		atendente.setGestor_atendente(optional.get());
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(atendenteService.save(atendente));
+		atendenteService.save(atendente);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("Atendente cadastrado com sucesso!");
+	}
+
+	@PostMapping("/atualizar")
+	@ResponseBody
+	public ResponseEntity<Object> updateAtendente(@RequestParam MultiValueMap<String, String> paramMap){
+
+		Optional<Atendente> atendenteOptional = atendenteService.findByCpf(paramMap.getFirst("cpf"));
+		if(!atendenteOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado: Atendente com este CPF não encontrado!");
+		}
+		
+		var atendente = new Atendente();
+		atendente = atendenteOptional.get();
+		atendente.setNome(paramMap.getFirst("nome"));
+		atendente.setEndereco(paramMap.getFirst("endereco"));
+		atendente.setTelefone(paramMap.getFirst("telefone"));
+		atendente.setData_nascimento(paramMap.getFirst("data_nascimento"));
+		atendente.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
+		atendente.setSenha(new BCryptPasswordEncoder().encode(paramMap.getFirst("senha")));
+		
+		Optional<Gestor> optionalGestor;
+		optionalGestor = gestorService.findByCpf(SecurityContextHolder.getContext().getAuthentication().getName());
+		
+		atendente.setGestor_atendente(optionalGestor.get());
+		atendenteService.save(atendente);
+		return ResponseEntity.status(HttpStatus.OK).body("Dados atualizados com sucesso");
+		
+	}
+	
+	public Atendente atendenteNaoEncontrado() {
+		
+		Atendente atendente = new Atendente();
+
+		atendente.setNome("Não encontrado");
+		atendente.setCpf("");
+		atendente.setEndereco("");
+		atendente.setData_nascimento("");
+		atendente.setSenha("");
+		atendente.setTelefone("");
+		
+		return atendente;
+		
 	}
 }

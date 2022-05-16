@@ -2,11 +2,13 @@ package br.ufs.esii.toh.controller.gestor;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -51,7 +53,43 @@ public class GerrefeicoesController {
 	
 	}
 	
-	@PostMapping
+	@RequestMapping("/cadastrar/")
+	@GetMapping
+	public String gerrefeicoesCadastrar(@RequestParam MultiValueMap<String, String> paramMap, Model model) {
+		
+		model.addAttribute("cpfgestor", paramMap.getFirst("cpfgestor"));
+		
+		return "gestor/gerrefeicoes/cadastrar";
+	
+	}
+	
+	@RequestMapping("/consultar/")
+	@GetMapping
+	public String gerrefeicoesConsultar(@RequestParam MultiValueMap<String, String> paramMap, Model model) {
+		Optional<Usuario> usuarioOptional = usuarioService.findByCpf(paramMap.getFirst("cpf"));
+		
+		if(!usuarioOptional.isEmpty()) {
+			List<Refeicao> listaRefeicoes = refeicaoService.findByUsuario(usuarioOptional.get());
+	
+			Optional<Cardapio> cardapioOptional = cardapioService.findByDataTurno(paramMap.getFirst("data")+"|"+paramMap.getFirst("turno"));
+			
+			Refeicao refeicao = consumirRefeicao(listaRefeicoes, cardapioOptional.get());
+			
+			if(refeicao == null) {
+				model.addAttribute("saida", "TICKET não encontrado!");
+			}
+			else {
+				model.addAttribute("saida", "TICKET encontrado!");
+			}
+			return "gestor/gerrefeicoes/consultar";
+		}
+		else {
+			model.addAttribute("saida", "TICKET não encontrado!");
+			return "gestor/gerrefeicoes/consultar";
+		}
+	}
+
+	@PostMapping("/cadastrar")
 	@ResponseBody
 	public ResponseEntity<Object> saveRefeicao(@RequestParam MultiValueMap<String, String> paramMap){
 		if(!usuarioService.existsByCpf(paramMap.getFirst("cpf"))) {
@@ -63,7 +101,7 @@ public class GerrefeicoesController {
 		
 		Optional<Cardapio> optionalCardapio = cardapioService.findByDataTurno(paramMap.getFirst("data")+"|"+paramMap.getFirst("turno"));
 		Optional<Usuario> optionalUsuario = usuarioService.findByCpf(paramMap.getFirst("cpf"));
-		Optional<Gestor> optionalGestor = gestorService.findByCpf(paramMap.getFirst("cpfgestor"));
+		Optional<Gestor> optionalGestor = gestorService.findByCpf(SecurityContextHolder.getContext().getAuthentication().getName());
 		
 		var refeicao = new Refeicao();
 
@@ -74,6 +112,19 @@ public class GerrefeicoesController {
 		
 		refeicao.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
 		refeicao.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
-		return ResponseEntity.status(HttpStatus.CREATED).body(refeicaoService.save(refeicao));
+		
+		refeicaoService.save(refeicao);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body("TICKET cadastrado com sucesso");
+	}
+	
+	public Refeicao consumirRefeicao(List<Refeicao> refeicoes, Cardapio cardapio) {
+		if(refeicoes.isEmpty())
+			return null;
+		List<Refeicao> lista = refeicoes;
+		lista.removeIf(refeicao -> !refeicao.getCardapio().equals(cardapio));
+		if(lista.isEmpty())
+			return null;
+		return lista.get(0);
 	}
 }

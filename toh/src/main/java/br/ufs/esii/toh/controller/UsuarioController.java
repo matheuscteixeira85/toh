@@ -101,21 +101,4 @@ public class UsuarioController {
 		usuarioService.delete(usuarioOptional.get());
 		return ResponseEntity.status(HttpStatus.OK).body("Usuario deletado com sucesso!");
 	}
-	/*
-	@PutMapping("/{id}")
-	@ResponseBody
-	public ResponseEntity<Object> updateUsuario(@PathVariable(value = "id") Long id,
-											   @RequestBody @Valid UsuarioDTO usuarioDTO){
-		Optional<Usuario> usuarioOptional = usuarioService.findById(id);
-		if(!usuarioOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
-		}
-		var  usuario = new Usuario();
-		BeanUtils.copyProperties(usuarioDTO, usuario);
-		usuario.setUsuario_id(usuarioOptional.get().getUsuario_id());
-		usuario.setData_cadastro(usuarioOptional.get().getData_cadastro());
-		usuario.setData_alteracao(usuarioOptional.get().getData_alteracao());
-		return ResponseEntity.status(HttpStatus.OK).body(usuarioService.save(usuario));
-	}
-	*/
 }

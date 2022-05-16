@@ -10,26 +10,9 @@
 			<div class="card-header" align="center"><h2 class="text-primary">Gerenciar TICKETS</h2></div>
 			<div class="card-body">
 				<div class="d-grid gap-2 col-12">
-					<form action="/gestor/gerrefeicoes" method="post">
-						<div class="mb-3">
-							<label for="cpf" class="form-label">CPF</label>
-							<input type="text" class="form-control" id="cpf" name="cpf">
-						</div>
-						<div class="mb-3">
-							<label for="data" class="form-label">Data</label>
-							<input type="date" class="form-control" id="data" name="data">
-						</div>
-						<div class="mb-3">
-							<label for="turno" class="form-label">Turno</label>
-							<input type="text" class="form-control" id="turno" name="turno">
-						</div>
-						<button type="submit" class="btn btn-primary gap-2 col-12">Salvar</button>
-						<input type="hidden" id="cpfgestor" name="cpfgestor" th:value="${cpfgestor}"> 
-					</form>
-					<div class="d-grid gap-2 col-12">
-						<a class="btn btn-primary" href="#" role="button">Consultar</a>
-						<a class="btn btn-primary" href="/gestor/" role="button">Voltar</a>
-					</div>
+					<a class="btn btn-primary" href="/gestor/gerrefeicoes/cadastrar/" role="button">Cadastrar TICKETS</a>
+					<a class="btn btn-primary" href="/gestor/gerrefeicoes/consultar/" role="button">Consultar TICKETS</a>
+					<a class="btn btn-primary" href="/gestor/" role="button">Voltar</a>
 				</div>
 			</div>
 		</div>
