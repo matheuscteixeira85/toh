@@ -13,7 +13,7 @@
 				<div class="row">
 					<div class="d-grid gap-2 col-12">
 						<a  class="btn btn-primary btn-lg" href="/atendente/validarqrcode/" role="button">Validar TICKET QR Code</a>
-						<a  class="btn btn-primary btn-lg" href="/atendente/validarcpf/" role="button">Validar TICKET CPF</a>
+						<a  class="btn btn-primary btn-lg" th:href="@{/atendente/validarcpf/(cpfatendente=${cpfatendente})}" role="button">Validar TICKET CPF</a>
 						<a  class="btn btn-primary btn-lg" href="/logout" role="button">Sair</a>
 					</div>
 				</div>

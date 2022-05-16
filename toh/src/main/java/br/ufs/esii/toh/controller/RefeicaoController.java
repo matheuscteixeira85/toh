@@ -63,9 +63,9 @@ public class RefeicaoController {
 		var refeicao = new Refeicao();
 
 		refeicao.setConsumida(false);
-		refeicao.setCardapio_refeicao(optionalCardapio.get());
-		refeicao.setUsuario_refeicao(optionalUsuario.get());
-		refeicao.setGestor_refeicao(optionalGestor.get());
+		refeicao.setCardapio(optionalCardapio.get());
+		refeicao.setUsuario(optionalUsuario.get());
+		refeicao.setGestor(optionalGestor.get());
 		
 		refeicao.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
 		refeicao.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
@@ -78,7 +78,7 @@ public class RefeicaoController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> getOneRefeicao(@PathVariable(value = "id") Long id){
+	public ResponseEntity<Object> getOneRefeicao(@PathVariable(value = "id") int id){
 		Optional<Refeicao> refeicaoOptional = refeicaoService.findById(id);
 		if(!refeicaoOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Refeicao não encontrada!");
@@ -87,7 +87,7 @@ public class RefeicaoController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteRefeicao(@PathVariable(value = "id") Long id){
+	public ResponseEntity<Object> deleteRefeicao(@PathVariable(value = "id") int id){
 		Optional<Refeicao> refeicaoOptional = refeicaoService.findById(id);
 		if(!refeicaoOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Refeicao não encontrada!");
@@ -95,20 +95,4 @@ public class RefeicaoController {
 		refeicaoService.delete(refeicaoOptional.get());
 		return ResponseEntity.status(HttpStatus.OK).body("Refeicao deletada com sucesso!");
 	}
-	/*
-	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateRefeicao(@PathVariable(value = "id") Long id,
-											   @RequestBody @Valid RefeicaoDTO refeicaoDTO){
-		Optional<Refeicao> refeicaoOptional = refeicaoService.findById(id);
-		if(!refeicaoOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Refeicao não encontrada!");
-		}
-		var  refeicao = new Refeicao();
-		BeanUtils.copyProperties(refeicaoDTO, refeicao);
-		refeicao.setId_refeicao(refeicaoOptional.get().getId_refeicao());
-		refeicao.setData_cadastro(refeicaoOptional.get().getData_cadastro());
-		refeicao.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
-		return ResponseEntity.status(HttpStatus.OK).body(refeicaoService.save(refeicao));
-	}
-	*/
 }

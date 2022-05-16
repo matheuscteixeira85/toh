@@ -12,19 +12,19 @@
 				<div class="d-grid gap-2 col-12">
 					<div class="row" align="left">
 						<label class="gap-2 col-sm-3 col-md-2 col-lg-1">NOME</label>
-						<textarea class="gap-2 col-sm-9 col-md-10 col-lg-11" rows="1" co>card_nome</textarea>
+						<textarea class="gap-2 col-sm-9 col-md-10 col-lg-11" rows="1" th:text="${cardapio.nome}" disabled="disabled">card_nome</textarea>
 					</div>
 					<div class="row" align="left">
 						<label class="gap-2 col-sm-3 col-md-2 col-lg-1">DESCRIÇÃO</label>
-						<textarea class="gap-2 col-sm-9 col-md-10 col-lg-11" rows="4" >card_descriao</textarea>
+						<textarea class="gap-2 col-sm-9 col-md-10 col-lg-11" rows="4" th:text="${cardapio.descricao}" disabled="disabled">card_descriao</textarea>
 					</div>
 					<div class="row" align="left">
 						<label class="gap-2 col-sm-3 col-md-2 col-lg-1">DATA</label>
-						<textarea class="gap-2 col-sm-9 col-md-10 col-lg-11" rows="1" >card_data</textarea>
+						<textarea class="gap-2 col-sm-9 col-md-10 col-lg-11" rows="1" th:text="${cardapio.data}" disabled="disabled">card_data</textarea>
 					</div>
 					<div class="row" align="left">
 						<label class="gap-2 col-sm-3 col-md-2 col-lg-1">TURNO</label>
-						<textarea class="gap-2 col-sm-9 col-md-10 col-lg-11" rows="1">card_turno</textarea>
+						<textarea class="gap-2 col-sm-9 col-md-10 col-lg-11" rows="1" th:text="${cardapio.turno}" disabled="disabled">card_turno</textarea>
 					</div>
 					<div class="row">
 						<a  class="btn btn-primary btn-lg" href="/usuario/usucardapio/" role="button">Voltar</a>

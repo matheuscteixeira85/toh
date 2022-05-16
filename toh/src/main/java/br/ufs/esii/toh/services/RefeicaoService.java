@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.ufs.esii.toh.model.Cardapio;
 import br.ufs.esii.toh.model.Refeicao;
+import br.ufs.esii.toh.model.Usuario;
 import br.ufs.esii.toh.repositories.RefeicaoRepositorie;
 
 @Service
@@ -27,9 +29,14 @@ public class RefeicaoService {
 		return refeicaoRepositorie.findAll();
 	}
 
-	public Optional<Refeicao> findById(Long id) {
+	public Optional<Refeicao> findById(int id) {
 		// TODO Auto-generated method stub
 		return refeicaoRepositorie.findById(id);
+	}
+
+	public List<Refeicao> findByUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return refeicaoRepositorie.findByUsuario(usuario);
 	}
 
 	@Transactional

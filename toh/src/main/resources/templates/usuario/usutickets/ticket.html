@@ -17,20 +17,20 @@
 						<tbody>
 							<tr>
 								<th scope="row">CPF</th>
-								<td>card_cpf</td>
+								<td th:text="${refeicao.usuario.cpf}">card_cpf</td>
 							</tr>
 							<tr>
 								<th scope="row">Data</th>
-								<td>card_data</td>
+								<td th:text="${refeicao.cardapio.data}">card_data</td>
 							</tr>
 							<tr>
 								<th scope="row">Turno</th>
-								<td>card_turno</td>
+								<td th:text="${refeicao.cardapio.turno}">card_turno</td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="row">
-						<a  class="btn btn-primary btn-lg" href="/usuario/usutickets/" role="button">Voltar</a>
+						<a  class="btn btn-primary btn-lg" th:href="@{/usuario/usutickets/(cpfusuario=${refeicao.usuario.cpf})}"  role="button">Voltar</a>
 					</div>
 				</div>
 			</div>

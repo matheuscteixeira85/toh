@@ -9,10 +9,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="d-grid gap-2 col-12">
-						<form class="form-control" action="/administrador/gergestor/" method="get">
-							<input type="hidden" class="form-control" id="cpfadmin" name="cpfadmin" th:value="${cpfadmin}">
-							<button type="submit" class="btn btn-primary gap-2 col-12">Gerenciar Gestores</button>
-						</form>
+						<a  class="btn btn-primary btn-lg" th:href="@{/administrador/gergestor/(${cpfadmin})}" role="button">Gerenciar Gestores</a>
 						<a  class="btn btn-primary btn-lg" href="/administrador/relgestores/" role="button">Relatório dos Gestores</a>
 						<a  class="btn btn-primary btn-lg" href="/administrador/relatendentes/" role="button">Relatório dos Atendentes</a>
 						<a  class="btn btn-primary btn-lg" href="/administrador/relcardapios/" role="button">Relatório dos Cardápios</a>

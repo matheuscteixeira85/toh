@@ -24,7 +24,7 @@ public class Cardapio {
 	@Column(nullable = false, length = 5)
 	private String turno;
 	@Column(nullable = false, length = 30)
-	private LocalDate data_refeicao;
+	private LocalDate data;
 	@Column(nullable = false, length = 35)
 	private String dataTurno;
 
@@ -36,7 +36,7 @@ public class Cardapio {
 	
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_gestor_cardapio", referencedColumnName = "gestor_id", nullable = true)
-	private Gestor gestor_cardapio;
+	private Gestor gestor;
 
 	
 	public int getId_cardapio() {
@@ -71,14 +71,6 @@ public class Cardapio {
 		this.turno = turno;
 	}
 
-	public LocalDate getData_refeicao() {
-		return data_refeicao;
-	}
-
-	public void setData_refeicao(LocalDate data_refeicao) {
-		this.data_refeicao = data_refeicao;
-	}
-
 	public LocalDateTime getData_cadastro() {
 		return data_cadastro;
 	}
@@ -101,14 +93,24 @@ public class Cardapio {
 	public void setDataTurno(String dataTurno) {
 		this.dataTurno = dataTurno;
 	}
-	
-	public Gestor getGestor_cardapio() {
-		return gestor_cardapio;
+
+	public LocalDate getData() {
+		return data;
 	}
 
-	public void setGestor_cardapio(Gestor gestor_cardapio) {
-		this.gestor_cardapio = gestor_cardapio;
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
+
+	public Gestor getGestor() {
+		return gestor;
+	}
+
+	public void setGestor(Gestor gestor) {
+		this.gestor = gestor;
+	}
+	
+	
 	
 	
 }

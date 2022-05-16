@@ -20,12 +20,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope="row">usu-id</th>
-							<td>usu-nome</td>
-							<td>usu-data</td>
-							<td>usu-turno</td>
-							<td><input type="checkbox" checked="checked" disabled="enabled"></td>
+						<tr th:each="ticket:${tickets}">
+							<th scope="row" th:text="${ticket.id_refeicao}">usu-id</th>
+							<td th:text="${ticket.cardapio.nome}">usu-nome</td>
+							<td th:text="${ticket.cardapio.data}">usu-data</td>
+							<td th:text="${ticket.cardapio.turno}">usu-turno</td>
+							<td>
+								<input th:if=${ticket.consumida} checked="checked" type="checkbox" disabled="enabled">
+								<input th:unless=${ticket.consumida} type="checkbox" disabled="enabled">
+							</td>
 						</tr>
 					</tbody>
 				</table>

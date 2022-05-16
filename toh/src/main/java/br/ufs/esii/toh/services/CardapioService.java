@@ -1,5 +1,6 @@
 package br.ufs.esii.toh.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class CardapioService {
 		return cardapioRepositorie.findAll();
 	}
 
-	public Optional<Cardapio> findById(Long id) {
+	public Optional<Cardapio> findById(int id) {
 		// TODO Auto-generated method stub
 		return cardapioRepositorie.findById(id);
 	}
@@ -35,6 +36,11 @@ public class CardapioService {
 	public Optional<Cardapio> findByDataTurno(String dataTurno) {
 		// TODO Auto-generated method stub
 		return cardapioRepositorie.findByDataTurno(dataTurno);
+	}
+
+	public List<Cardapio> findByData(LocalDate data) {
+		// TODO Auto-generated method stub
+		return cardapioRepositorie.findByData(data);
 	}
 	
 	public boolean existsByDataTurno(String dataTurno) {

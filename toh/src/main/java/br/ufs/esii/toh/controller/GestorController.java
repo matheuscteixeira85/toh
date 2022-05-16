@@ -8,10 +8,11 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.ufs.esii.toh.model.Administrador;
 import br.ufs.esii.toh.model.Gestor;
 import br.ufs.esii.toh.services.AdministradorService;
+import br.ufs.esii.toh.services.AtendenteService;
 import br.ufs.esii.toh.services.GestorService;
 
 @Controller
@@ -36,14 +38,22 @@ public class GestorController {
 	GestorService gestorService;
 	
 	@Autowired
+	AtendenteService atendenteService;
+	
+	@Autowired
 	AdministradorService administradorService;
 	
 	@RequestMapping("/")
-	public String gestor() {
+	public String gestor(Model model) {
+
+		model.addAttribute("cpfgestor",SecurityContextHolder.getContext().getAuthentication().getName());
+		
 		return "gestor";
 	}
 	
-	@PostMapping(consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+	
+	
+	@PostMapping
 	@ResponseBody
 	public ResponseEntity<Object> saveGestor(@RequestParam MultiValueMap<String, String> paramMap){
 		//VERIFICAR REGISTROS UNICOS REPETIDOS

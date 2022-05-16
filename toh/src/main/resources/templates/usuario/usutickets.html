@@ -12,13 +12,16 @@
 				<div class="d-grid gap-2 col-12">
 					<table class="table col-12">
 						<tbody>
-							<tr class="gap-2 col-3">
-								<th scope="row" >nome</th>
-								<th >turno</td>
-								<th class="gap-2 col-3"><a  class="btn btn-primary btn-lg col-12" href="/usuario/usutickets/ticket/" role="button">Exibir</a></td>
+							<tr class="gap-2 col-3" th:each = "ticket : ${tickets}">
+								<th scope="row" th:text="${ticket.cardapio.nome}">nome</th>
+								<th th:text="${ticket.cardapio.turno}">turno</td>
+								<th class="gap-2 col-3"><a  class="btn btn-primary btn-lg col-12" th:href=@{/usuario/usutickets/ticket/(cpfusuario=${cpfusuario},id_refeicao=${ticket.id_refeicao})} role="button">Exibir</a></td>
 							</tr>
 						</tbody>
 					</table>
+					<div class="d-grid gap-2 col-12">
+						<a class="btn btn-primary" href="/usuario/" role="button">Voltar</a>
+					</div>
 				</div>
 			</div>
 		</div>

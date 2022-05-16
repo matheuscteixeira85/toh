@@ -21,9 +21,9 @@
 						</thead>
 						<tbody>
 							<tr th:each="refeicao : ${refeicoes}">
-								<td th:text="${refeicao.usuario_refeicao.cpf}">ref_cpf</td>
-								<td th:text="${refeicao.cardapio_refeicao.data_refeicao}">ref_data</td>
-								<td th:text="${refeicao.cardapio_refeicao.turno}">ref_turno</td>
+								<td th:text="${refeicao.usuario.cpf}">ref_cpf</td>
+								<td th:text="${refeicao.cardapio.data}">ref_data</td>
+								<td th:text="${refeicao.cardapio.turno}">ref_turno</td>
 								<td>
 									<input th:if=${refeicao.consumida} checked="checked" type="checkbox" disabled="enabled">
 									<input th:unless=${refeicao.consumida} type="checkbox" disabled="enabled">

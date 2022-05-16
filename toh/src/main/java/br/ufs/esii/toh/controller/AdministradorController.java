@@ -42,9 +42,8 @@ public class AdministradorController {
 
 	@RequestMapping("/")
 	public String administrador(Model model) {
-		String cpfadmin = SecurityContextHolder.getContext().getAuthentication().getName();
-		System.out.println(cpfadmin.length());
-		model.addAttribute("cpfadmin",cpfadmin);
+		
+		model.addAttribute("cpfadmin",SecurityContextHolder.getContext().getAuthentication().getName());
 		
 		return "administrador";
 	}
@@ -54,38 +53,6 @@ public class AdministradorController {
 		return "root";
 	}
 	
-	
-	
-	@PostMapping
-	@ResponseBody
-	public ResponseEntity<Object> saveGestor(@RequestParam MultiValueMap<String, String> paramMap){
-		//VERIFICAR REGISTROS UNICOS REPETIDOS
-		if(gestorService.existsByCpf(paramMap.getFirst("cpf"))) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: Gestor com este CPF já cadastrado!");
-		}
-		List<Gestor> lista = gestorService.findAll();
-		
-		var gestor = new Gestor();
-		gestor.setCpf(paramMap.getFirst("cpf"));
-		gestor.setNome(paramMap.getFirst("nome"));
-		gestor.setEndereco(paramMap.getFirst("endereco"));
-		gestor.setTelefone(paramMap.getFirst("telefone"));
-		gestor.setData_nascimento(paramMap.getFirst("data_nascimento"));
-		gestor.setMatricula(lista.size());
-		gestor.setData_cadastro(LocalDateTime.now(ZoneId.of("UTC")));
-		gestor.setData_alteracao(LocalDateTime.now(ZoneId.of("UTC")));
-		gestor.setLogin(paramMap.getFirst("cpf"));
-		gestor.setSenha(new BCryptPasswordEncoder().encode(paramMap.getFirst("senha")));
-		gestor.setTipo("gest");
-		
-		Optional<Administrador> optional;
-		optional = administradorService.findByCpf(paramMap.getFirst("cpfadmin"));
-		
-		gestor.setAdministrador_gestor(optional.get());
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(gestorService.save(gestor));
-		
-	}
 	
 	
 	

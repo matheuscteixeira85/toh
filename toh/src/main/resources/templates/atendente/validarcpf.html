@@ -9,7 +9,19 @@
 		<div class="container-fluid py-5">
 			<div class="card-header" align="center"><h2 class="text-primary">Validar CPF</h2></div>
 			<div class="card-body">
-				<div class="row">
+				<div class="d-grid gap-2 col-12">
+					<form action="/atendente/validarcpf" method="post">
+						<div class="mb-3">
+							<label for="cpf" class="form-label">CPF</label>
+							<input type="text" class="form-control" id="cpf" name="cpf">
+						</div>
+						<div class="mb-3">
+							<label for="turno" class="form-label">Turno</label>
+							<input type="text" class="form-control" id="turno" name="turno">
+						</div>
+						<button type="submit" class="btn btn-primary gap-2 col-12">Salvar</button>
+						<input type="hidden" id="cpfatendente" name="cpfatendente" th:value="${cpfatendente}"> 
+					</form>
 					<div class="d-grid gap-2 col-12">
 						<a  class="btn btn-primary btn-lg" href="/atendente/" role="button">Voltar</a>
 					</div>

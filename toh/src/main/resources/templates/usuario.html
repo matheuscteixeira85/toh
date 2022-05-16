@@ -10,9 +10,9 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="d-grid gap-2 col-12">
-						<a  class="btn btn-primary btn-lg" href="/usuario/usutickets/" role="button">Exibir Tickets Cadastrados</a>
+						<a  class="btn btn-primary btn-lg" th:href="@{/usuario/usutickets/(cpfusuario=${cpfusuario})}"  role="button">Exibir Tickets Cadastrados</a>
 						<a  class="btn btn-primary btn-lg" href="/usuario/usucardapio/" role="button">Exibir Cardápios do Dia</a>
-						<a  class="btn btn-primary btn-lg" href="/usuario/usuhistorico/" role="button">Visualizar Histórico de Tickets</a>
+						<a  class="btn btn-primary btn-lg" th:href="@{/usuario/usuhistorico/(cpfusuario=${cpfusuario})}" role="button">Visualizar Histórico de Tickets</a>
 						<a  class="btn btn-primary btn-lg" href="/logout" role="button">Sair</a>
 					</div>
 				</div>
